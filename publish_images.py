@@ -4,10 +4,10 @@ from itertools import product
 
 REPOSITORY = "ismailbouajaja"
 IMAGE_NAME = "cuda-python"
-CUDA_VERSIONS = ["12.4.1"]
-CUDA_CUDNN_OPTIONS = ["", "-cudnn"]
-CUDA_TYPES = ["-devel"] # "-base", "-runtime", "-devel"
-CUDA_OS_OPTIONS = ["-ubuntu22.04"]
+CUDA_VERSIONS = ["12.3.2", "12.4.1"]
+CUDA_CUDNN_OPTIONS = ["", "-cudnn", "-cudnn9"] # -cudnn for 12.4.1; -cudnn9 for 12.3.2
+CUDA_TYPES = ["-devel"] # -base, -runtime, -devel
+CUDA_OS_OPTIONS = ["-ubuntu20.04", "-ubuntu22.04"]
 PYTHON_VERSIONS = ["3.10", "3.11", "3.12"]
 
 def build_and_push_image(image_name: str, tag: str, repository: str, **args: dict[str, str]):

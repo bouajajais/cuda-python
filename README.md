@@ -10,10 +10,10 @@ Currently, `latest` corresponds to `CUDA_TAG` = `12.4.1-cudnn-devel-ubuntu22.04`
 
 Here are the TAGS currently available :
 ```Python
-CUDA_VERSIONS = ["12.4.1"]
-CUDA_CUDNN_OPTIONS = ["", "-cudnn"]
+CUDA_VERSIONS = ["12.3.2", "12.4.1"]
+CUDA_CUDNN_OPTIONS = ["", "-cudnn", "-cudnn9"] # -cudnn for 12.4.1; -cudnn9 for 12.3.2
 CUDA_TYPES = ["-devel"]
-CUDA_OS_OPTIONS = ["-ubuntu22.04"]
+CUDA_OS_OPTIONS = ["-ubuntu20.04", "-ubuntu22.04"]
 PYTHON_VERSIONS = ["3.10", "3.11", "3.12"]
 ```
 
