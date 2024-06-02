@@ -1,12 +1,12 @@
 # cuda-python
 
-Based on NVIDIA's cuda images, it adds python on top.
+This is a Docker image based on nvidia/cuda that installs Python on top.
 
 ## Available tags
 
 Tags reflect the image of cuda used and the version of python added on top in the form `${CUDA_TAG}-python${PYTHON_VERSION}`.
 
-Currently, `latest` corresponds to `CUDA_TAG` = `12.4.1-cudnn-devel-ubuntu22.04` and `PYTHON_VERSION` = `3.12`.
+Currently, `latest` corresponds to `12.4.1-cudnn-devel-ubuntu22.04-python3.12`.
 
 Here are the TAGS currently available :
 ```Python
@@ -19,21 +19,9 @@ PYTHON_VERSIONS = ["3.10", "3.11", "3.12"]
 
 Other tags will be added later.
 
-## Usage
+## Clone repository
 
-You may run it directly from Docker Hub or by cloning the github repository and building the image locally before running it.
-
-### Using Docker Hub image
-
-To use the `cuda-python` image from Docker Hub, run the following command :
-
-```bash
-docker run --rm -it --gpus all ismailbouajaja/cuda-python bash
-```
-
-### Clone repository
-
-To clone the github repository, build the image yourself and run it, follow these steps :
+To clone the github repository containing the Dockerfile used, follow these steps :
 
 1. Clone the repository:
     ```bash

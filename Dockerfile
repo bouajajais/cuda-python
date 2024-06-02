@@ -4,11 +4,7 @@
 ARG CUDA_TAG=12.4.1-cudnn-devel-ubuntu22.04
 
 # Use an official CUDA image as a parent image
-FROM nvidia/cuda:${CUDA_TAG} AS cuda
-
-
-# Install python and pip on top of the CUDA image
-FROM cuda AS cuda-python
+FROM nvidia/cuda:${CUDA_TAG}
 
 # Set the Python version to install
 ARG PYTHON_VERSION=3.12
