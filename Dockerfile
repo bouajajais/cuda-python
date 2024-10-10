@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Set the CUDA version to install
-ARG CUDA_TAG=12.4.1-cudnn-devel-ubuntu22.04
+ARG CUDA_TAG=12.6.1-cudnn-devel-ubuntu22.04
 
 # Use an official CUDA image as a parent image
 FROM nvidia/cuda:${CUDA_TAG}
