@@ -20,9 +20,9 @@ These images can be found in Dockerhub through the following link:
 
 To clone the github repository containing the Dockerfile used, follow these steps :
 
-1. Clone the repository:
+1. Clone the repository [https://github.com/bouajajais/cuda-python.git](https://github.com/bouajajais/cuda-python.git):
     ```bash
-    git clone [https://github.com/bouajajais/cuda-python.git](https://github.com/bouajajais/cuda-python.git)
+    git clone https://github.com/bouajajais/cuda-python.git
     ```
 
 2. Navigate to the project directory:

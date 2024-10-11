@@ -7,6 +7,8 @@ from parallelize import parallelize
 BASE_IMAGE = "nvidia/cuda"
 INSTALLED_FEATURES = ", ".join(["python"])
 
+CWD = "."
+
 IMAGE_NAME = "cuda-python"
 DOCKERHUB_USERNAME = "ismailbouajaja"
 GITHUB_USERNAME = "bouajajais"
@@ -40,6 +42,7 @@ def get_tag(
 def build_image(
     image_name: str = IMAGE_NAME,
     tag: str = get_tag(),
+    cwd: str = CWD,
     verbose: int = 1,
     **args: dict[str, str]
     ) -> bool:
@@ -50,9 +53,9 @@ def build_image(
         args = " ".join([f"--build-arg {key}={value}" for key, value in args.items()])
         build_command = f"docker build {args} -t {image_name}:{tag} ."
         if verbose < 2:
-            subprocess.run(build_command, shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run(build_command, shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, cwd=cwd)
         else:
-            subprocess.run(build_command, shell=True, check=True)    
+            subprocess.run(build_command, shell=True, check=True, cwd=cwd)
     except Exception as e:
         # Error
         if verbose >= 1:
@@ -68,24 +71,25 @@ def push_image(
     image_name: str = IMAGE_NAME,
     tag: str = get_tag(),
     dockerhub_username: str = DOCKERHUB_USERNAME,
+    cwd: str = CWD,
     verbose: int = 1
     ) -> bool:
     try:
         # Tag the Docker image
         tag_command = f"docker tag {image_name}:{tag} {dockerhub_username}/{image_name}:{tag}"
         if verbose < 2:
-            subprocess.run(tag_command, shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run(tag_command, shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, cwd=cwd)
         else:
-            subprocess.run(tag_command, shell=True, check=True)
+            subprocess.run(tag_command, shell=True, check=True, cwd=cwd)
 
         # Push the Docker image
         if verbose >= 1:
             print(f"Pushing {dockerhub_username}/{image_name}:{tag} to Dockerhub...")
         push_command = f"docker push {dockerhub_username}/{image_name}:{tag}"
         if verbose < 2:
-            subprocess.run(push_command, shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run(push_command, shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, cwd=cwd)
         else:
-            subprocess.run(push_command, shell=True, check=True)
+            subprocess.run(push_command, shell=True, check=True, cwd=cwd)
     
     except Exception as e:
         # Error
@@ -108,6 +112,7 @@ def update_github(
     tag_format: str = TAG_FORMAT,
     latest_cuda_tag: str = get_cuda_tag(),
     latest_python_version: str = PYTHON_VERSIONS[-1],
+    cwd: str = CWD,
     verbose: int = 1
     ) -> None:
     with open(Path(__file__).parent / "README_template.md", "r") as file:
@@ -128,13 +133,13 @@ def update_github(
         file.write(readme)
     
     if verbose < 2:
-        subprocess.run(f"git add .", shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        subprocess.run(f"git commit -m 'Update README.md'", shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        subprocess.run(f"git push", shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.run(f"git add .", shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, cwd=cwd)
+        subprocess.run(f"git commit -m 'Update README.md'", shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, cwd=cwd)
+        subprocess.run(f"git push", shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, cwd=cwd)
     else:
-        subprocess.run(f"git add .", shell=True, check=True)
-        subprocess.run(f"git commit -m 'Update README.md'", shell=True, check=True)
-        subprocess.run(f"git push", shell=True, check=True)
+        subprocess.run(f"git add .", shell=True, check=True, cwd=cwd)
+        subprocess.run(f"git commit -m 'Update README.md'", shell=True, check=True, cwd=cwd)
+        subprocess.run(f"git push", shell=True, check=True, cwd=cwd)
 
 def publish_images(
     image_name: str = IMAGE_NAME,
@@ -148,6 +153,7 @@ def publish_images(
     cuda_types: list[str] = CUDA_TYPES,
     cuda_os_options: list[str] = CUDA_OS_OPTIONS,
     python_versions: list[str] = PYTHON_VERSIONS,
+    cwd: str = CWD,
     verbose: int = 1,
     n_jobs: int = 8
     ):
@@ -170,6 +176,7 @@ def publish_images(
                 cuda_tag,
                 python_version
             ),
+            cwd,
             0,
             **args
         )
@@ -201,6 +208,7 @@ def publish_images(
                 python_version
             ),
             dockerhub_username,
+            cwd,
             0
         )
     
@@ -225,6 +233,7 @@ def publish_images(
             cuda_os_options[-1]
         ),
         python_versions[-1],
+        cwd,
         verbose
     )
     
