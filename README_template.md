@@ -20,9 +20,9 @@ These images can be found in Dockerhub through the following link:
 
 To clone the github repository containing the Dockerfile used, follow these steps :
 
-1. Clone the repository:
+1. Clone the repository [https://github.com/{GITHUB_USERNAME}/{IMAGE_NAME}.git](https://github.com/{GITHUB_USERNAME}/{IMAGE_NAME}.git):
     ```bash
-    git clone [https://github.com/{GITHUB_USERNAME}/{IMAGE_NAME}.git](https://github.com/{GITHUB_USERNAME}/{IMAGE_NAME}.git)
+    git clone https://github.com/{GITHUB_USERNAME}/{IMAGE_NAME}.git
     ```
 
 2. Navigate to the project directory:
